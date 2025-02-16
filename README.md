@@ -34,16 +34,8 @@
 4. Open your browser and go to `http://localhost:3000`
 
 ### Deploy on Vercel ☁️🚀
-Brine includes a `vercel.json` configuration for easy deployment on [Vercel](https://vercel.com/):
-1. Install Vercel CLI:
-   ```sh
-   npm install -g vercel
-   ```
-2. Deploy the project:
-   ```sh
-   vercel
-   ```
-3. Follow the instructions and get your live URL.
+Brine includes a `vercel.json` configuration for easy deployment on [Vercel](https://vercel.com/):  
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?https://github.com/JoshMann15/Brine)
 
 ## Usage 👀
 
