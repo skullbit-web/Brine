@@ -4,6 +4,8 @@
    <p>Brine is a high-performance web proxy designed for bypassing internet censorship with ease. Built on the powerful <a href="https://github.com/titaniumnetwork-dev/Ultraviolet">Ultraviolet</a> backend, Brine provides a seamless and secure browsing experience with a focus on speed and anonymity.</p>
 </div>
 
+![brinepreview](public/assets/BrineScreenshot.png)
+
 ## Features ✨
 
 - **Lightweight**: Minimal resource usage for maximum efficiency.
