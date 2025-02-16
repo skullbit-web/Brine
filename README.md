@@ -36,7 +36,7 @@
 ### Deploy on Vercel ☁️🚀
 Brine includes a `vercel.json` configuration for easy deployment on [Vercel](https://vercel.com/):  
   
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?https://github.com/JoshMann15/Brine.git)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FJoshMann15%2FBrine.git)
 
 ## Usage 👀
 
