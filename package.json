@@ -1,0 +1,39 @@
+{
+  "name": "brine",
+  "description": "Lightweight, anonymous web proxy. Designed for bypassing internet censorship with ease.",
+  "version": "2.0.3",
+  "homepage": "https://github.com/JoshMann15/Brine",
+  "bugs": {
+    "email": "JoshMann15Dev@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JoshMann15/Brine.git"
+  },
+  "author": {
+    "name": "JoshMann15",
+    "email": "JoshMann15Dev@gmail.com",
+    "url": "https://github.com/JoshMann15"
+  },
+  "keywords": [
+    "proxy",
+    "ultraviolet",
+    "brine",
+    "tomphttp"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "npm install --global @tomphttp/bare-server-node",
+    "start": "npx bare-server-node"
+  },
+  "dependencies": {
+    "@tomphttp/bare-client": "^2.2.0-alpha",
+    "@tomphttp/bare-server-node": "2.0.3",
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  },
+  "type": "module"
+}
