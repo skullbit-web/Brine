@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <link rel="icon" href="/assets/favicon.ico">
     <link rel="shortcut icon" href="/assets/favicon.ico">
 
@@ -18,123 +17,33 @@
             });
         }
     </script>
-    <title>goprox.</title>
+    <title>GeForce NOW</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        #youtubeOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+        #youtubeIframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
 </head>
 <body>
-    <div class="content">
-        <div class="section">
-            <div>
-                goprox.<br>
-
-                <div class="group">
-                    <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><g><path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path></g></svg>
-                    <input placeholder="Search the web..." type="search" class="input" id="searchBar">
-                  </div>
-            </div>
-        </div>
-        <div class="section">
-            <div>
-            
-            </div>
-        </div>
-    </div>
-    
-    <canvas id="neuro"></canvas>
-    
-    <script id="vertShader" type="x-shader/x-vertex">
-        precision mediump float;
-        
-        attribute vec2 a_position;
-        varying vec2 vUv;
-        
-        void main() {
-            // Map positions from [-1, 1] to UV coordinates in [0, 1]
-            vUv = a_position * 0.5 + 0.5;
-            gl_Position = vec4(a_position, 0.0, 1.0);
-        }
-    </script>
-    <script type="x-shader/x-fragment" id="vertShader">
-        precision mediump float;
-    
-        varying vec2 vUv;
-        attribute vec2 a_position;
-    
-        void main() {
-            vUv = .5 * (a_position + 1.);
-            gl_Position = vec4(a_position, 0.0, 1.0);
-        }
-    </script>
-    
-    <script type="x-shader/x-fragment" id="fragShader">
-        precision mediump float;
-    
-        varying vec2 vUv;
-        uniform float u_time;
-        uniform float u_ratio;
-        uniform vec2 u_pointer_position;
-        uniform float u_scroll_progress;
-    
-        vec2 rotate(vec2 uv, float th) {
-            return mat2(cos(th), sin(th), -sin(th), cos(th)) * uv;
-        }
-    
-        float neuro_shape(vec2 uv, float t, float p) {
-            vec2 sine_acc = vec2(0.);
-            vec2 res = vec2(0.);
-            float scale = 8.;
-    
-            for (int j = 0; j < 15; j++) {
-                uv = rotate(uv, 1.);
-                sine_acc = rotate(sine_acc, 1.);
-                vec2 layer = uv * scale + float(j) + sine_acc - t;
-                sine_acc += sin(layer) + 2.4 * p;
-                res += (.5 + .5 * cos(layer)) / scale;
-                scale *= (1.2);
-            }
-            return res.x + res.y;
-        }
-    
-        void main() {
-            vec2 uv = .5 * vUv;
-            uv.x *= u_ratio;
-    
-            vec2 pointer = vUv - u_pointer_position;
-            pointer.x *= u_ratio;
-            float p = clamp(length(pointer), 0., 1.);
-            p = .5 * pow(1. - p, 2.);
-    
-            float t = .001 * u_time;
-            vec3 color = vec3(0.);
-    
-            float noise = neuro_shape(uv, t, p);
-    
-            noise = 1.2 * pow(noise, 3.);
-            noise += pow(noise, 10.);
-            noise = max(.0, noise - .5);
-            noise *= (1. - length(vUv - .5));
-    
-            color = normalize(vec3(.2, .5 + .4 * cos(3. * u_scroll_progress), .5 + .5 * sin(3. * u_scroll_progress)));
-    
-            color = color * noise;
-    
-            gl_FragColor = vec4(color, noise);
-        }
-    </script>
     <div id="youtubeOverlay">
-        <div class="bookmark-container">
-            <svg class="bookmark-icon" viewBox="0 0 384 512" fill="#222831" width="50" height="50" onclick="closeIframe()">
-                <path d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z"></path>
-            </svg>
-            <svg class="close-icon" viewBox="0 0 24 24" fill="white" width="20" height="20" onclick="closeIframe()">
-                <path d="M6 6l12 12M18 6l-12 12" stroke="white" stroke-width="3" stroke-linecap="round"/>
-            </svg>
-        </div>
         <iframe id="youtubeIframe" allowfullscreen></iframe>
-    </div>
-    <div id="loader">
-        <span class="word">Lightweight.&nbsp;</span>
-        <span class="word">Fast.&nbsp;</span>
-        <span class="word">Anonymous.</span>
     </div>
     <script src="swhandler.js"></script>
 </body>
